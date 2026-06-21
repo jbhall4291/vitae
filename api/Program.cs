@@ -1,8 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using Vitae.Api.Data;
+using Vitae.Api.Services;
+using Vitae.Api.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<VitaeDbContext>(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("VitaeDb"),
+        sqlServerOptions =>
+        {
+            sqlServerOptions.EnableRetryOnFailure();
+        });
+});
+
+builder.Services.AddScoped<IResumeDraftService, ResumeDraftService>();
 
 builder.Services.AddCors(options =>
 {
@@ -47,6 +64,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapResumeDraftEndpoints();
 
 app.Run();
 
