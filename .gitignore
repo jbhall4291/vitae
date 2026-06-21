@@ -28,3 +28,6 @@ dist-ssr
 # .NET build output
 **/bin/
 **/obj/
+
+# Local development settings
+api/appsettings.Development.json
