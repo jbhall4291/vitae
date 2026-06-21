@@ -24,3 +24,7 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sw?
+
+# .NET build output
+**/bin/
+**/obj/
