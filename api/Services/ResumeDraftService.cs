@@ -21,6 +21,8 @@ public class ResumeDraftService : IResumeDraftService
             .Select(draft => new ResumeDraftResponse(
                 draft.Id,
                 draft.Title,
+                draft.TargetRole,
+                draft.Template,
                 draft.CreatedAt,
                 draft.UpdatedAt
             ))
@@ -34,6 +36,8 @@ public class ResumeDraftService : IResumeDraftService
         var draft = new ResumeDraft
         {
             Title = request.Title.Trim(),
+            TargetRole = string.IsNullOrWhiteSpace(request.TargetRole) ? null : request.TargetRole.Trim(),
+            Template = string.IsNullOrWhiteSpace(request.Template) ? "modern" : request.Template,
             CreatedAt = now,
             UpdatedAt = now
         };
@@ -45,6 +49,8 @@ public class ResumeDraftService : IResumeDraftService
         return new ResumeDraftResponse(
             draft.Id,
             draft.Title,
+            draft.TargetRole,
+            draft.Template,
             draft.CreatedAt,
             draft.UpdatedAt
         );

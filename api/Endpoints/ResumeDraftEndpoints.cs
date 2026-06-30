@@ -25,6 +25,14 @@ public static class ResumeDraftEndpoints
                 return Results.BadRequest("Title is required.");
             }
 
+            var allowedTemplates = new[] { "modern", "classic", "compact" };
+
+            if (!string.IsNullOrWhiteSpace(request.Template) &&
+                !allowedTemplates.Contains(request.Template))
+            {
+                return Results.BadRequest("Template is invalid.");
+            }
+
             var draft = await resumeDraftService.CreateResumeDraftAsync(request);
 
             return Results.Created($"/api/resume-drafts/{draft.Id}", draft);

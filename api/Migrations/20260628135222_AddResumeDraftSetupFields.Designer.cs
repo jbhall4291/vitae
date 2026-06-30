@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vitae.Api.Data;
 
@@ -11,9 +12,11 @@ using Vitae.Api.Data;
 namespace Vitae.Api.Migrations
 {
     [DbContext(typeof(VitaeDbContext))]
-    partial class VitaeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260628135222_AddResumeDraftSetupFields")]
+    partial class AddResumeDraftSetupFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
