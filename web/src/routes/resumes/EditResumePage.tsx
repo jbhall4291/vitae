@@ -10,7 +10,6 @@ export function EditResumePage() {
   return (
     <section className="rounded-lg border p-4">
       <h2 className="text-lg font-medium">Edit resume</h2>
-
       <p className="mt-2 text-sm text-gray-500">Editing: {draft.title}</p>
     </section>
   )

@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLoaderData } from "react-router"
+import { Link, NavLink, Outlet, useLoaderData, Form } from "react-router"
 import type { ResumeDraftResponse } from "@/api/resumeDrafts"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useState } from "react"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type ResumeLoaderData = {
   draft: ResumeDraftResponse
@@ -59,6 +59,8 @@ export function ResumeAppLayout() {
                               {item.targetRole ?? "No target role"} ·{" "}
                               {item.template}
                             </div>
+
+                            <p>debug: id is {item.id}</p>
                           </Link>
                         </li>
                       )
@@ -66,7 +68,15 @@ export function ResumeAppLayout() {
                   </ul>
                 </ScrollArea>
                 <div className="border-t py-4">
-                  <Button className="h-12 w-full">Create new resume</Button>
+                  <Form
+                    method="post"
+                    action="/resumes"
+                    onSubmit={() => setSheetOpen(false)}
+                  >
+                    <Button type="submit" className="h-12 w-full">
+                      Create new resume
+                    </Button>
+                  </Form>
                 </div>
               </SheetContent>
             </Sheet>

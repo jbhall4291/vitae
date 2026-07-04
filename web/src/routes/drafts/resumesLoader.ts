@@ -1,5 +1,5 @@
 import { getResumeDrafts } from "@/api/resumeDrafts"
 
-export async function draftsLoader() {
+export async function resumesLoader() {
   return await getResumeDrafts()
 }

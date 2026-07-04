@@ -1,32 +1,31 @@
 import { createBrowserRouter, Navigate } from "react-router"
-import { DraftsPage } from "@/routes/drafts/DraftsPage"
-import { draftsLoader } from "@/routes/drafts/draftsLoader"
-import DraftsErrorPage from "./routes/drafts/DraftsErrorPage"
-import { draftsAction } from "./routes/drafts/draftsAction"
+import { ResumesPage } from "@/routes/drafts/ResumesPage"
 import { resumeLoader } from "./routes/resumes/editResumeLoader"
 import { EditResumePage } from "./routes/resumes/EditResumePage"
-import { EditResumeErrorPage } from "./routes/resumes/EditResumeErrorPage"
 import { ResumeAppLayout } from "./routes/resumes/ResumeAppLayout"
 import { DesignResumePage } from "./routes/resumes/DesignResumePage"
 import { ShareResumePage } from "./routes/resumes/ShareResumePage"
+import { resumesLoader } from "./routes/drafts/resumesLoader"
+import { resumesAction } from "./routes/drafts/resumesAction"
+import { ResumesErrorPage } from "./routes/drafts/ResumesErrorPage"
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/drafts" replace />,
+    element: <Navigate to="/resumes" replace />,
   },
   {
-    path: "/drafts",
-    element: <DraftsPage />,
-    loader: draftsLoader,
-    action: draftsAction,
-    errorElement: <DraftsErrorPage />,
+    path: "/resumes",
+    element: <ResumesPage />,
+    loader: resumesLoader,
+    action: resumesAction,
+    errorElement: <ResumesErrorPage />,
   },
   {
     path: "/resumes/:resumeId",
     element: <ResumeAppLayout />,
     loader: resumeLoader,
-    errorElement: <EditResumeErrorPage />,
+    errorElement: <ResumesErrorPage />,
     children: [
       {
         index: true,
