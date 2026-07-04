@@ -15,6 +15,12 @@ export type CreateResumeDraftRequest = {
   template: ResumeTemplate
 }
 
+export type UpdateResumeDraftRequest = {
+  title: string
+  targetRole: string
+  template: ResumeTemplate
+}
+
 const API_BASE_URL = "http://localhost:5104"
 
 export async function getResumeDrafts(): Promise<ResumeDraftResponse[]> {
@@ -36,7 +42,7 @@ export async function getResumeDraftById(
     throw new Error("Failed to fetch resume draft")
   }
 
-  return response.json()
+  return (await response.json()) as ResumeDraftResponse
 }
 
 export async function createResumeDraft(
@@ -55,4 +61,33 @@ export async function createResumeDraft(
   }
 
   return (await response.json()) as ResumeDraftResponse
+}
+
+export async function updateResumeDraft(
+  id: number,
+  draft: UpdateResumeDraftRequest
+): Promise<ResumeDraftResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/resume-drafts/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(draft),
+  })
+
+  if (!response.ok) {
+    throw new Error(`failed to update resume draft: ${response.status}`)
+  }
+
+  return (await response.json()) as ResumeDraftResponse
+}
+
+export async function deleteResumeDraft(id: number): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/api/resume-drafts/${id}`, {
+    method: "DELETE",
+  })
+
+  if (!response.ok) {
+    throw new Error(`failed to delete resume draft: ${response.status}`)
+  }
 }
