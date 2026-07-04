@@ -29,6 +29,22 @@ public class ResumeDraftService : IResumeDraftService
             .ToListAsync();
     }
 
+    public async Task<ResumeDraftResponse?> GetResumeDraftByIdAsync(int id)
+    {
+        return await _db.ResumeDrafts
+            .AsNoTracking()
+            .Where(draft => draft.Id == id)
+            .Select(draft => new ResumeDraftResponse(
+                draft.Id,
+                draft.Title,
+                draft.TargetRole,
+                draft.Template,
+                draft.CreatedAt,
+                draft.UpdatedAt
+            ))
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<ResumeDraftResponse> CreateResumeDraftAsync(CreateResumeDraftRequest request)
     {
         var now = DateTime.UtcNow;

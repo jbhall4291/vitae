@@ -4,6 +4,7 @@ import {
   useLoaderData,
   useNavigation,
   useSubmit,
+  Link,
 } from "react-router"
 import type { ResumeDraftResponse } from "../../api/resumeDrafts"
 import { type CreateDraft, createDraftSchema } from "./createDraftSchema"
@@ -152,17 +153,22 @@ export function DraftsPage() {
         ) : (
           <ul className="space-y-3">
             {drafts.map((draft) => (
-              <li key={draft.id} className="rounded-md border p-4">
-                <h2 className="font-medium">{draft.title}</h2>
+              <li key={draft.id}>
+                <Link
+                  to={`/resumes/${draft.id}/edit`}
+                  className="block rounded-md border p-4 hover:bg-gray-50"
+                >
+                  <h2 className="font-medium">{draft.title}</h2>
 
-                <p className="text-sm text-gray-500">
-                  {draft.targetRole ? draft.targetRole : "No target role"} ·{" "}
-                  {draft.template}
-                </p>
+                  <p className="text-sm text-gray-500">
+                    {draft.targetRole ? draft.targetRole : "No target role"} ·{" "}
+                    {draft.template}
+                  </p>
 
-                <p className="text-sm text-gray-500">
-                  Created {new Date(draft.createdAt).toLocaleString()}
-                </p>
+                  <p className="text-sm text-gray-500">
+                    Created {new Date(draft.createdAt).toLocaleString()}
+                  </p>
+                </Link>
               </li>
             ))}
           </ul>

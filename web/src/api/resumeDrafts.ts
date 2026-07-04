@@ -27,6 +27,18 @@ export async function getResumeDrafts(): Promise<ResumeDraftResponse[]> {
   return (await response.json()) as ResumeDraftResponse[]
 }
 
+export async function getResumeDraftById(
+  id: number
+): Promise<ResumeDraftResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/resume-drafts/${id}`)
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch resume draft")
+  }
+
+  return response.json()
+}
+
 export async function createResumeDraft(
   draft: CreateResumeDraftRequest
 ): Promise<ResumeDraftResponse> {

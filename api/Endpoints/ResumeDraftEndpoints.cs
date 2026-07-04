@@ -16,6 +16,17 @@ public static class ResumeDraftEndpoints
             return Results.Ok(drafts);
         });
 
+        group.MapGet("/{id:int}", async (
+            int id,
+            IResumeDraftService resumeDraftService) =>
+        {
+            var draft = await resumeDraftService.GetResumeDraftByIdAsync(id);
+
+            return draft is null
+                ? Results.NotFound()
+                : Results.Ok(draft);
+        });
+
         group.MapPost("/", async (
             CreateResumeDraftRequest request,
             IResumeDraftService resumeDraftService) =>
