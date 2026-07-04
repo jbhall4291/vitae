@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Vitae.Api.Contracts;
 using Vitae.Api.Data;
 using Vitae.Api.Models;
+using Vitae.Api.Domain;
 
 namespace Vitae.Api.Services;
 
@@ -53,7 +54,7 @@ public class ResumeDraftService : IResumeDraftService
         {
             Title = request.Title.Trim(),
             TargetRole = string.IsNullOrWhiteSpace(request.TargetRole) ? null : request.TargetRole.Trim(),
-            Template = string.IsNullOrWhiteSpace(request.Template) ? "modern" : request.Template,
+            Template = ResumeTemplates.NormalizeOrDefault(request.Template),
             CreatedAt = now,
             UpdatedAt = now
         };
@@ -71,4 +72,54 @@ public class ResumeDraftService : IResumeDraftService
             draft.UpdatedAt
         );
     }
+
+    public async Task<ResumeDraftResponse?> UpdateResumeDraftAsync(int id, UpdateResumeDraftRequest request)
+    {
+        var draft = await _db.ResumeDrafts
+            .FirstOrDefaultAsync(draft => draft.Id == id);
+
+        if (draft is null)
+        {
+            return null;
+        }
+
+        draft.Title = request.Title.Trim();
+
+        draft.TargetRole = string.IsNullOrWhiteSpace(request.TargetRole)
+            ? null
+            : request.TargetRole.Trim();
+
+        draft.Template = ResumeTemplates.NormalizeOrDefault(request.Template);
+
+        draft.UpdatedAt = DateTime.UtcNow;
+
+        await _db.SaveChangesAsync();
+
+        return new ResumeDraftResponse(
+            draft.Id,
+            draft.Title,
+            draft.TargetRole,
+            draft.Template,
+            draft.CreatedAt,
+            draft.UpdatedAt
+        );
+    }
+
+    public async Task<bool> DeleteResumeDraftAsync(int id)
+    {
+        var draft = await _db.ResumeDrafts
+            .FirstOrDefaultAsync(draft => draft.Id == id);
+
+        if (draft is null)
+        {
+            return false;
+        }
+
+        _db.ResumeDrafts.Remove(draft);
+
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
+
 }
