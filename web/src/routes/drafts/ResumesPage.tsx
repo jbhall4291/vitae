@@ -1,15 +1,6 @@
 import { useLoaderData, Link, Form, useNavigation } from "react-router"
 import type { ResumeDraftResponse } from "../../api/resumeDrafts"
 
-// type DraftsActionData = {
-//   fieldErrors?: {
-//     title?: string[]
-//     targetRole?: string[]
-//     template?: string[]
-//   }
-//   formError?: string
-// }
-
 export function ResumesPage() {
   const drafts = useLoaderData() as ResumeDraftResponse[]
   const navigation = useNavigation()
@@ -28,7 +19,7 @@ export function ResumesPage() {
               <button
                 type="submit"
                 disabled={isCreating}
-                className="flex h-full min-h-40 w-full rounded border-2 border-dashed border-[#0066cc] p-6 text-left text-black hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex h-full min-h-40 w-full rounded border-2 border-dashed border-[#0066cc] p-6 text-left text-black hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-10"
               >
                 <span className="text-xl font-semibold">
                   {isCreating ? "Creating..." : "Create new +"}

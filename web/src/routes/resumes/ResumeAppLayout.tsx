@@ -55,10 +55,10 @@ export function ResumeAppLayout() {
                           >
                             <div className="font-medium">{item.title}</div>
 
-                            <div className="mt-1 text-xs text-gray-500">
+                            {/* <div className="mt-1 text-xs text-gray-500">
                               {item.targetRole ?? "No target role"} ·{" "}
                               {item.template}
-                            </div>
+                            </div> */}
 
                             <p>debug: id is {item.id}</p>
                           </Link>
@@ -81,15 +81,19 @@ export function ResumeAppLayout() {
               </SheetContent>
             </Sheet>
 
-            <div>
+            {/* <div>
               <h1 className="text-xl font-semibold">{draft.title}</h1>
+              <h2>debud id: {draft.id}</h2>
               <p className="text-sm text-gray-500">
                 {draft.targetRole ?? "No target role"} · {draft.template}
               </p>
-            </div>
+            </div> */}
           </div>
 
           <nav className="flex gap-4 text-sm">
+            <NavLink to="/" className="bg-black p-1 text-white">
+              Home
+            </NavLink>
             <NavLink to="edit">Edit</NavLink>
             <NavLink to="design">Design</NavLink>
             <NavLink to="share">Share</NavLink>
