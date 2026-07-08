@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router"
 import { ResumesPage } from "@/routes/drafts/ResumesPage"
-import { resumeLoader } from "./routes/resumes/editResumeLoader"
+import { resumeLoader } from "./routes/resumes/resumeLoader"
 import { EditResumePage } from "./routes/resumes/EditResumePage"
 import { ResumeAppLayout } from "./routes/resumes/ResumeAppLayout"
 import { DesignResumePage } from "./routes/resumes/DesignResumePage"
@@ -8,6 +8,7 @@ import { ShareResumePage } from "./routes/resumes/ShareResumePage"
 import { resumesLoader } from "./routes/drafts/resumesLoader"
 import { resumesAction } from "./routes/drafts/resumesAction"
 import { ResumesErrorPage } from "./routes/drafts/ResumesErrorPage"
+import { editResumeAction } from "./routes/resumes/editResumeAction"
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
       {
         path: "edit",
         element: <EditResumePage />,
+        action: editResumeAction,
       },
       {
         path: "design",
